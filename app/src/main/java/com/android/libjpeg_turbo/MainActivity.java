@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -28,8 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Example of a call to a native method
-        TextView tv = findViewById(R.id.sample_text);
-        tv.setText(stringFromJNI());
+
 
         //bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.timg);
 
@@ -47,8 +47,16 @@ public class MainActivity extends AppCompatActivity {
                 Environment.getExternalStorageDirectory()+"/test.wep");*/
         File input = new File(Environment.getExternalStorageDirectory(),"test.jpg");
         bitmap= BitmapFactory.decodeFile(input.getAbsolutePath());
+        bitmap= BitmapFactory.decodeResource(getResources(),R.mipmap.wyz_p);
+        calculateBitmapSize(bitmap);
+        Bitmap bitmap2 = ImageResize.resizeBitmap(getApplicationContext(), R.mipmap.wyz_p, 80, 80, false);
+        calculateBitmapSize(bitmap2);
 
+    }
 
+    private void calculateBitmapSize(Bitmap bitmap) {
+        Log.d("zhangbin----","图片宽:"+bitmap.getWidth()+"高："+bitmap.getHeight()+
+                "大小"+bitmap.getByteCount());
     }
 
     /**
@@ -82,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
     public native void nativeCompress(Bitmap bitmap,int quarity,String path);
 
     public void test(View view) {
+        TextView tv = findViewById(R.id.sample_text);
+        tv.setText(stringFromJNI());
         nativeCompress(bitmap,50,Environment.getExternalStorageDirectory()+"/timg22.jpg");
     }
 }
