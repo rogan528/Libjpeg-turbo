@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 public class ImageResize {
-    public static Bitmap resizeBitmap(Context context,int id,int maxW,int maxH,boolean isAlapha){
+    public static Bitmap resizeBitmap(Context context,int id,int maxW,int maxH,boolean isAlapha,Bitmap resusable){
 
         Resources resources = context.getResources();
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -25,6 +25,8 @@ public class ImageResize {
             options.inPreferredConfig = Bitmap.Config.RGB_565;
         }
         options.inJustDecodeBounds = false;
+        options.inMutable = true;
+        options.inBitmap =resusable;
         return BitmapFactory.decodeResource(resources,id,options);
 
     }

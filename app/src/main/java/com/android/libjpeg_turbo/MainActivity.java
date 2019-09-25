@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.File;
@@ -49,8 +50,11 @@ public class MainActivity extends AppCompatActivity {
         bitmap= BitmapFactory.decodeFile(input.getAbsolutePath());
         bitmap= BitmapFactory.decodeResource(getResources(),R.mipmap.wyz_p);
         calculateBitmapSize(bitmap);
-        Bitmap bitmap2 = ImageResize.resizeBitmap(getApplicationContext(), R.mipmap.wyz_p, 80, 80, false);
-        calculateBitmapSize(bitmap2);
+        //Bitmap bitmap2 = ImageResize.resizeBitmap(getApplicationContext(), R.mipmap.wyz_p, 80, 80, false,);
+        //calculateBitmapSize(bitmap2);
+        ImageCache.getImageCache().init(this,Environment.getExternalStorageDirectory()+"/dn");
+        ListView listView = findViewById(R.id.listview);
+        listView.setAdapter(new MyAdpter(this));
 
     }
 
