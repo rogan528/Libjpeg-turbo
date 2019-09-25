@@ -117,7 +117,7 @@ public class ImageCache {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        getReferenceQueue();
     }
     public void putBitmapMemory(String key,Bitmap bitmap){
         memoryCache.put(key,bitmap);
